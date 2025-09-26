@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/styles/index.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Death Events - Home</title>
+    </head>
+    <body>
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Signup</a>
+        </nav>
+
+        <h1>Death Events</h1>
+        <h2>Welcome to the offical site of the minecraft server "Death Events"!</h2>
+        <h3>
+            Here you can do lots of things from checking if the server is online, to playing and sharing games online!
+        </h3>
+        <h2> So, What Would you like to do?</h2>
+        <button id="checkServerStats">See Server Status</button>
+
+
+        <script>
+            const checkServerStatsBtn = document.getElementById("checkServerStats");
+            
+            checkServerStatsBtn.addEventListener('click', () => {
+                window.location.href='serverstatus.html';
+            });
+        </script>
+    </body>
+</html>

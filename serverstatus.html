@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Server Status - Death Events</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="/styles/serverstatus.css">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Signup</a></li>
+            </ul>
+        </nav>
+
+        <h1>Server Status</h1>
+        <div id="statusContainer">
+            <button id="checkStatusBtn">Check Server Status</button>
+            <h2 id="statusMessage"></h2>
+        </div>
+
+        <script>
+            const socket = io();
+            const checkStatusBtn = document.getElementById('checkStatusBtn');
+            const statusMessage = document.getElementById('statusMessage');
+
+            checkStatusBtn.addEventListener('click', () => {
+                socket.emit('checkServerStatus');
+                statusMessage.innerText = "Checking server status...";
+            });
+
+            socket.on('serverStatus', (data) => {
+                if (data.online) {
+                    statusMessage.innerHTML = 
+                    `
+                    <span style="color:green;"> Server is ONLINE </span>
+                    Players Online: ${data.playersOnline} / ${data.playersMax}
+                    Version: ${data.version}
+                    MOTD: ${data.motd}
+                    `;
+                } else {
+                    statusMessage.innerHTML = "<span style='color:red;'> Server is OFFLINE </span>";
+                }
+            });
+
+            window.onload = () => {
+                socket.emit('checkServerStatus');
+                statusMessage.innerText = "Checking server status...";
+            };
+        </script>
+    </body>
+</html>
